@@ -11,6 +11,9 @@ group :production do
   gem 'rails_12factor'
 end
 
+# Use bootstrap library for styles
+gem 'bootstrap-sass', '~> 3.3.5'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -50,4 +53,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+# css3の新機能を古いブラウザー等で正常に機能するようにする記述法を自動で補完してくれるgem
+# https://github.com/ai/autoprefixer-rails
+gem 'autoprefixer-rails'
 
