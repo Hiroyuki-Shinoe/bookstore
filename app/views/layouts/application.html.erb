@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Bookstore</title>
+  <title><%= @page_title ? @page_title : 'Welcome' %> | The Bookstore</title>
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -26,8 +26,13 @@
       </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><%=  link_to 'Home', root_path %></li>
-          <li><%= link_to 'About Us', about_path %></li>
+          <!-- どのページでも、rootへのリンクにクラス activeがついてしまっているのを、
+          アクセスしているページによってactiveがつくかどうかを変える。  -->
+          <!-- <li class="active"><%=  link_to 'Home', root_path %></li> -->
+          <!-- アクセスしているurlを処理するcontrollerが booksControllerなら、
+          classをactiveに、そうでないなら、classを''、つまり無しにする。 -->
+          <li class="<%= params[:controller] == 'books' ? 'active' : '' %>"><%= link_to 'Home', root_path %></li>
+          <li class="<%= params[:controller] == 'about' ? 'active' : '' %>"><%= link_to 'About Us', about_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
@@ -44,7 +49,32 @@
     </div>
   </nav>
 
-  <%= yield %>
+  <header>
+    <div class="container">
+      <!-- @page_titileの中身があればそれを表示、
+      無ければ Welcome を表示させる。 ternary -->
+      <h1>The BookStore <small><%= @page_title ? @page_title : 'Welcome' %></small></h1>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <%= yield %>
+        </div>
+        <div class="col-md-4">
+          <%= render "partials/sidebar" %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Copyright &copy; 2015, All Rights Reserved</p>
+    </div>
+  </footer>
 
 </body>
 </html>
